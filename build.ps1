@@ -1,12 +1,12 @@
 <#
 .SYNOPSIS
-    Gera o executavel e o instalador do App Vault Protection.
+    Gera o executavel e o instalador do App Vault Konektron.
 
 .DESCRIPTION
     1. Cria/usa o ambiente virtual .venv-build e instala requirements-build.txt
     2. Roda os testes
-    3. Gera dist\AppVaultProtection\AppVaultProtection.exe (PyInstaller)
-    4. Gera dist\installer\AppVaultProtection-Setup-<versao>.exe (Inno Setup 6)
+    3. Gera dist\AppVaultKonektron\AppVaultKonektron.exe (PyInstaller)
+    4. Gera dist\installer\AppVaultKonektron-Setup-<versao>.exe (Inno Setup 6)
     5. Assina os executaveis, se houver certificado configurado
     6. Grava dist\installer\SHA256SUMS.txt
 
@@ -76,7 +76,7 @@ function Invoke-Sign {
 $match = Select-String -Path version.py -Pattern '__version__\s*=\s*"([0-9]+\.[0-9]+\.[0-9]+)"'
 if (-not $match) { throw "Nao encontrei __version__ em version.py" }
 $version = $match.Matches[0].Groups[1].Value
-Write-Host "== App Vault Protection $version"
+Write-Host "== App Vault Konektron $version"
 
 # ---- certificado de assinatura (opcional)
 $script:SignPfx = $null
@@ -119,7 +119,7 @@ try {
 
     Write-Host "== PyInstaller"
     Invoke-Checked $py @("-m", "PyInstaller", "--noconfirm", "--clean", "app_vault.spec")
-    $exe = "dist\AppVaultProtection\AppVaultProtection.exe"
+    $exe = "dist\AppVaultKonektron\AppVaultKonektron.exe"
     if (-not (Test-Path $exe)) { throw "Executavel nao gerado: $exe" }
     Invoke-Sign @($exe)
 
@@ -136,7 +136,7 @@ try {
     $outDir = "dist\installer"
     if (Test-Path $outDir) { Remove-Item -Recurse -Force $outDir }
     Invoke-Checked $iscc @("/Q", "/DAppVersion=$version", "installer\app_vault.iss")
-    $setup = Join-Path $outDir "AppVaultProtection-Setup-$version.exe"
+    $setup = Join-Path $outDir "AppVaultKonektron-Setup-$version.exe"
     if (-not (Test-Path $setup)) { throw "Instalador nao gerado: $setup" }
     Invoke-Sign @($setup)
 

@@ -9,7 +9,7 @@ from PyInstaller.utils.win32.versioninfo import (  # noqa: E402
     FixedFileInfo, StringFileInfo, StringStruct, StringTable, VarFileInfo, VarStruct,
     VSVersionInfo)
 
-EXE_NAME = "AppVaultProtection"
+EXE_NAME = "AppVaultKonektron"
 _v = tuple(int(x) for x in __version__.split(".")) + (0,)
 
 version_info = VSVersionInfo(

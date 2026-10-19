@@ -1,5 +1,5 @@
 """
-vault.py — Núcleo criptográfico do App Vault Protection (formato v2).
+vault.py — Núcleo criptográfico do App Vault Konektron (formato v2).
 
 Guarda credenciais (FTP, APIs, painéis, bancos de dados, SSH, nuvem...) separadas
 por ambiente, num único arquivo SQLite criptografado.

@@ -1,5 +1,5 @@
 """
-app.py — Interface gráfica do App Vault Protection.
+app.py — Interface gráfica do App Vault Konektron.
 
 Guarda credenciais de plataformas de dados (FTP/SFTP, APIs, painéis, bancos de dados,
 SSH, nuvem...) separadas por ambiente, num arquivo local criptografado (ver vault.py).
@@ -30,7 +30,7 @@ CLIPBOARD_CLEAR_SECONDS = 30     # limpa a área de transferência após 30 s
 REVEAL_SECONDS = 20              # segredo revelado volta a ser mascarado após 20 s
 # No executável (PyInstaller) os arquivos de apoio ficam em sys._MEIPASS.
 ASSETS_DIR = Path(getattr(sys, "_MEIPASS", Path(__file__).resolve().parent)) / "assets"
-DATA_DIR = Path(os.environ.get("LOCALAPPDATA") or Path.home()) / "AppVaultProtection"
+DATA_DIR = Path(os.environ.get("LOCALAPPDATA") or Path.home()) / "AppVaultKonektron"
 CONFIG_PATH = DATA_DIR / "config.json"   # só guarda o caminho do último cofre aberto
 DEFAULT_VAULT = DATA_DIR / "cofre.db"
 FONT = "Segoe UI" if sys.platform == "win32" else "Helvetica"
@@ -122,6 +122,22 @@ def password_strength(pw: str) -> tuple[str, str]:
     if bits < 80:
         return "Força: razoável", "#ca6f1e"
     return "Força: forte", "#1e8449"
+
+
+def migrate_legacy_data_dir() -> None:
+    """Move os dados da pasta antiga (versão 1.0.0, "AppVaultProtection") para DATA_DIR."""
+    old = DATA_DIR.parent / "AppVaultProtection"
+    if not old.is_dir() or DATA_DIR.exists():
+        return
+    try:
+        old.rename(DATA_DIR)
+    except OSError:
+        return
+    cfg = load_config()
+    last = cfg.get("last_vault")
+    if isinstance(last, str) and Path(last).parent == old:
+        cfg["last_vault"] = str(DATA_DIR / Path(last).name)
+        save_config(cfg)
 
 
 def load_config() -> dict:
@@ -1249,6 +1265,7 @@ def main() -> None:
             ctypes.windll.shcore.SetProcessDpiAwareness(1)  # texto nítido em telas HiDPI
         except Exception:
             pass
+    migrate_legacy_data_dir()
     App(sys.argv[1] if len(sys.argv) > 1 else None).mainloop()
 
 

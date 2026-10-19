@@ -1,8 +1,8 @@
-; Instalador do App Vault Protection (Inno Setup 6).
+; Instalador do App Vault Konektron (Inno Setup 6).
 ; Gere com:  ISCC.exe /DAppVersion=1.0.0 installer\app_vault.iss   (ou use build.ps1)
 
-#define AppName "App Vault Protection"
-#define AppExe "AppVaultProtection.exe"
+#define AppName "App Vault Konektron"
+#define AppExe "AppVaultKonektron.exe"
 #ifndef AppVersion
   #define AppVersion "0.0.0"
 #endif
@@ -16,7 +16,7 @@ AppVerName={#AppName} {#AppVersion}
 AppPublisher={#AppName}
 VersionInfoVersion={#AppVersion}
 ; Instalação por usuário, sem privilégios de administrador:
-; vai para %LOCALAPPDATA%\Programs\App Vault Protection
+; vai para %LOCALAPPDATA%\Programs\App Vault Konektron
 PrivilegesRequired=lowest
 DefaultDirName={autopf}\{#AppName}
 DefaultGroupName={#AppName}
@@ -24,7 +24,7 @@ DisableProgramGroupPage=yes
 ArchitecturesAllowed=x64compatible
 ArchitecturesInstallIn64BitMode=x64compatible
 OutputDir=..\dist\installer
-OutputBaseFilename=AppVaultProtection-Setup-{#AppVersion}
+OutputBaseFilename=AppVaultKonektron-Setup-{#AppVersion}
 SetupIconFile=..\assets\app.ico
 UninstallDisplayIcon={app}\{#AppExe}
 UninstallDisplayName={#AppName}
@@ -45,7 +45,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Type: filesandordirs; Name: "{app}\_internal"
 
 [Files]
-Source: "..\dist\AppVaultProtection\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\dist\AppVaultKonektron\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
 Name: "{autoprograms}\{#AppName}"; Filename: "{app}\{#AppExe}"
@@ -54,5 +54,5 @@ Name: "{autodesktop}\{#AppName}"; Filename: "{app}\{#AppExe}"; Tasks: desktopico
 [Run]
 Filename: "{app}\{#AppExe}"; Description: "{cm:LaunchProgram,{#AppName}}"; Flags: nowait postinstall skipifsilent
 
-; Os cofres ficam em %LOCALAPPDATA%\AppVaultProtection (fora da pasta do programa)
+; Os cofres ficam em %LOCALAPPDATA%\AppVaultKonektron (fora da pasta do programa)
 ; e NÃO são apagados na desinstalação.

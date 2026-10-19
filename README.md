@@ -1,4 +1,4 @@
-# App Vault Protection
+# App Vault Konektron
 
 Aplicativo desktop para guardar credenciais de plataformas de dados (FTP/SFTP, APIs,
 painéis web, bancos de dados, SSH, nuvem…) **separadas por ambiente** (Produção,
@@ -21,14 +21,14 @@ Python nem permissão de administrador.
 1. Entre no GitHub com a sua conta e abra este repositório.
 2. Na lateral direita, clique em **Releases** e abra a versão mais recente (**Latest**).
 3. Em **Assets**, baixe os dois arquivos:
-   - `AppVaultProtection-Setup-<versão>.exe` (o instalador)
+   - `AppVaultKonektron-Setup-<versão>.exe` (o instalador)
    - `SHA256SUMS.txt` (o código de verificação)
 
 **Pelo GitHub CLI** (opcional)
 
 ```powershell
 gh auth login
-gh release download --repo <organização>/app_vault --pattern "*"
+gh release download --repo ivamgf/app_vault_konektron --pattern "*"
 ```
 
 Baixe sempre da página de Releases. Não use cópias recebidas por e-mail, chat ou
@@ -39,7 +39,7 @@ pendrive.
 No PowerShell, na pasta do download:
 
 ```powershell
-(Get-FileHash .\AppVaultProtection-Setup-*.exe -Algorithm SHA256).Hash
+(Get-FileHash .\AppVaultKonektron-Setup-*.exe -Algorithm SHA256).Hash
 Get-Content .\SHA256SUMS.txt
 ```
 
@@ -49,15 +49,15 @@ diferentes, **não instale**: apague o arquivo e baixe de novo.
 
 ### 3. Instalar
 
-1. Dê dois cliques em `AppVaultProtection-Setup-<versão>.exe`.
+1. Dê dois cliques em `AppVaultKonektron-Setup-<versão>.exe`.
 2. Se aparecer "O Windows protegeu o computador", é porque o instalador ainda não tem
    assinatura digital. Depois de conferir o código do passo 2, clique em
    **Mais informações → Executar assim mesmo**.
 3. Siga o assistente. Se quiser, marque **Criar um atalho na área de trabalho**.
-4. Ao final, o app abre. Depois, ele fica no **Menu Iniciar → App Vault Protection**.
+4. Ao final, o app abre. Depois, ele fica no **Menu Iniciar → App Vault Konektron**.
 
 O programa é instalado só para o seu usuário, em
-`%LOCALAPPDATA%\Programs\App Vault Protection`.
+`%LOCALAPPDATA%\Programs\App Vault Konektron`.
 
 ### Atualizar
 
@@ -68,10 +68,10 @@ A versão instalada aparece em **Ajuda → Sobre**.
 
 ### Desinstalar
 
-**Configurações → Aplicativos → Aplicativos instalados → App Vault Protection →
+**Configurações → Aplicativos → Aplicativos instalados → App Vault Konektron →
 Desinstalar.**
 
-Os cofres ficam em `%LOCALAPPDATA%\AppVaultProtection` e **não** são apagados na
+Os cofres ficam em `%LOCALAPPDATA%\AppVaultKonektron` e **não** são apagados na
 desinstalação. Apague essa pasta manualmente só se tiver certeza de que não precisa mais
 deles.
 
@@ -82,10 +82,10 @@ deve rodar **na sessão do próprio usuário**, não como SYSTEM:
 
 ```powershell
 # instalar (adicione /TASKS="desktopicon" para criar o atalho na área de trabalho)
-.\AppVaultProtection-Setup-<versão>.exe /VERYSILENT /SUPPRESSMSGBOXES /NORESTART
+.\AppVaultKonektron-Setup-<versão>.exe /VERYSILENT /SUPPRESSMSGBOXES /NORESTART
 
 # desinstalar
-& "$env:LOCALAPPDATA\Programs\App Vault Protection\unins000.exe" /VERYSILENT /SUPPRESSMSGBOXES /NORESTART
+& "$env:LOCALAPPDATA\Programs\App Vault Konektron\unins000.exe" /VERYSILENT /SUPPRESSMSGBOXES /NORESTART
 ```
 
 ### Levar o cofre para outro computador
@@ -112,7 +112,7 @@ O cofre é um único arquivo e funciona em qualquer máquina com o app instalado
 ## Primeiro uso
 
 1. A tela **"Novo cofre"** cria o arquivo no local padrão
-   (`%LOCALAPPDATA%\AppVaultProtection\cofre.db`), uma pasta acessível só ao seu usuário.
+   (`%LOCALAPPDATA%\AppVaultKonektron\cofre.db`), uma pasta acessível só ao seu usuário.
 2. Defina a senha mestra (mínimo de 12 caracteres; uma frase longa é melhor) e confirme.
 3. Clique em **Criar cofre**. Nas próximas vezes, o app pede só a senha.
 
@@ -248,7 +248,7 @@ Pré-requisito: Inno Setup 6 (`winget install JRSoftware.InnoSetup`).
 
 ```powershell
 .\build.ps1                  # testes + executável + instalador
-.\build.ps1 -SkipInstaller   # só o executável (dist\AppVaultProtection\)
+.\build.ps1 -SkipInstaller   # só o executável (dist\AppVaultKonektron\)
 ```
 
 O resultado fica em `dist\installer\`: o instalador e o `SHA256SUMS.txt`. O script usa
