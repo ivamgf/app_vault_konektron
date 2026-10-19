@@ -1,4 +1,4 @@
-# Gera o instalador do App Vault Protection.
+# Gera o instalador do App Vault Konektron.
 # - Em qualquer execução manual (Actions > Release > Run workflow): build + artefato para download.
 # - Ao enviar uma tag vX.Y.Z (igual à versão em version.py): build + Release com o instalador.
 name: Release
@@ -71,5 +71,5 @@ jobs:
         run: |
           cd out
           sha256sum -c SHA256SUMS.txt
-          gh release create "$TAG" ./* --repo "$REPO" --title "App Vault Protection $TAG" \
-            --notes "Baixe o AppVaultProtection-Setup e confira o SHA-256 em SHA256SUMS.txt antes de instalar."
+          gh release create "$TAG" ./* --repo "$REPO" --title "App Vault Konektron $TAG" \
+            --notes "Baixe o AppVaultKonektron-Setup e confira o SHA-256 em SHA256SUMS.txt antes de instalar."

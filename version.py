@@ -1,4 +1,4 @@
 """Nome e versão do aplicativo (fonte única para o app, o executável e o instalador)."""
 
-APP_NAME = "App Vault Protection"
+APP_NAME = "App Vault Konektron"
 __version__ = "1.0.0"
